@@ -15,12 +15,14 @@ angular.module('flickrGalleryApp')
 			$scope.$apply(function () {
 				$scope.data = dataResponse.items;
 				// if we have favourites saved
-				//$scope.data.items[$scope.data.items.length].media.m = localStorage.getItem("favouriteIMGs");
-				//
-				var favourites = JSON.parse(localStorage.getItem("favouriteIMGs"))
-				for (var i = 0; i < favourites.length; i++) {
-					$scope.data.items.push(favourites[i]);
+				if (localStorage.getItem("favouriteIMGs")) {
+					var favourites = JSON.parse(localStorage.getItem("favouriteIMGs"))
+					for (var i = 0; i < favourites.length; i++) {
+						$scope.data.items.push(favourites[i]);
+						$scope.favourite[$scope.data.items.length - 1] = true;
+					}
 				}
+				console.log($scope.favourite);
 				console.log($scope.data.items);
 			});
 		});
@@ -30,36 +32,53 @@ angular.module('flickrGalleryApp')
 			$timeout(
 	            function() {
 	               	var container = document.querySelector('#gallery');
-					var msnry = new Masonry( container, {}); var msnry = new Masonry( '#gallery', {}); 
+					var msnry = new Masonry( container, {});
 	            },
 	            1500
 	        );
 		});
 
-		$scope.favourite = function(pos) {
+		$scope.favourite = new Object;
+		$scope.addRmvFavourite = function(pos) {
+			var favourites = JSON.parse(localStorage.getItem("favouriteIMGs"));
+
 			if ($scope.favourite[pos]) {
 				$scope.favourite[pos] = false;
+				// revome from collection
+				for (var i = 0; i < favourites.length; i ++) {
+					if ($scope.data.items[pos].media.m === favourites[i].media.m) {
+						var b = i;
+						break;
+					}
+				}
+				console.log(b);
+				console.log('ANTES: ',favourites);
+				favourites.splice(b, 1);
+								console.log('BORRADO: ',favourites);
+
 			} else {
 				$scope.favourite[pos] = true;
-
-				if (localStorage.getItem('favouriteIMGs')) {
-					var favourites = JSON.parse(localStorage.getItem("favouriteIMGs"));
+				// add to collection
+				if (favourites) {
 					favourites[favourites.length] = {
 						media: {
-							m: $scope.data.items[pos].media.m
+							m: $scope.data.items[pos].media.m,
+							favourite: true,
+							pos: pos
 						}
 					};
 				} else {
 					var favourites = [{
 						media: {
-							m: $scope.data.items[pos].media.m
+							m: $scope.data.items[pos].media.m,
+							favourite: true,
+							pos: pos
 						}
 					}];
 				}
-				
-				localStorage.setItem('favouriteIMGs', JSON.stringify(favourites));
-				console.log('LOCAL: ',JSON.parse(localStorage.getItem("favouriteIMGs")));
 			}
+			localStorage.setItem('favouriteIMGs', JSON.stringify(favourites));
+			console.log('LOCAL: ',JSON.parse(localStorage.getItem("favouriteIMGs")));
 		};
 
 
