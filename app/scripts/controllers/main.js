@@ -15,15 +15,21 @@ angular.module('flickrGalleryApp')
 			$scope.$apply(function () {
 				$scope.data = dataResponse.items;
 				// if we have favourites saved
-				if (localStorage.getItem("favouriteIMGs")) {
-					var favourites = JSON.parse(localStorage.getItem("favouriteIMGs"))
+				if (localStorage.getItem('favouriteIMGs')) {
+					var favourites = JSON.parse(localStorage.getItem('favouriteIMGs'));
+					var b = 0;
 					for (var i = 0; i < favourites.length; i++) {
 						$scope.data.items.push(favourites[i]);
 						$scope.favourite[$scope.data.items.length - 1] = true;
+						// remove repeat images
+						/*var posRepeat = favourites[i].media.pos;
+						if ($scope.data.items[posRepeat].media.m === favourites[i].media.m) {
+							$scope.data.items.splice(i - b, 1);
+							b++;
+						}
+						$scope.data.splice(b, 1);*/
 					}
 				}
-				console.log($scope.favourite);
-				console.log($scope.data.items);
 			});
 		});
 
@@ -51,11 +57,7 @@ angular.module('flickrGalleryApp')
 						break;
 					}
 				}
-				console.log(b);
-				console.log('ANTES: ',favourites);
 				favourites.splice(b, 1);
-								console.log('BORRADO: ',favourites);
-
 			} else {
 				$scope.favourite[pos] = true;
 				// add to collection
@@ -78,7 +80,6 @@ angular.module('flickrGalleryApp')
 				}
 			}
 			localStorage.setItem('favouriteIMGs', JSON.stringify(favourites));
-			console.log('LOCAL: ',JSON.parse(localStorage.getItem("favouriteIMGs")));
 		};
 
 
