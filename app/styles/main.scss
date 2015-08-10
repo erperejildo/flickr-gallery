@@ -18,15 +18,17 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  padding: 0px 2px;
 }
 
-.heart {
-  background-image: url(../images/heart.svg);
-  height: 24px;
-  width: 24px;
-  position: absolute;
-  z-index: 1;
-  margin: 5px;
+h1 {
+  padding: 10px 0px;
+  text-align: center;
+}
+
+#loading {
+  display: block;
+  margin: auto;
 }
 
 .photo {
@@ -36,10 +38,36 @@ body {
   margin: 2px;
 }
 
+.vertical {
+  height: 200px;
+}
+.horizontal {
+  height: 100px;
+}
+
+.heart {
+  opacity: 0;
+  visibility: hidden;
+  background-image: url(../images/heart.svg);
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  margin: 5px;
+  @include transition(0.5);
+}
+
+.visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 .image {
   float: left;
   -webkit-filter: grayscale(70%);
   filter: grayscale(50%);
+  height: 100%;
   width: 100%;
   @include transition(0.5);
 }
@@ -48,3 +76,6 @@ body {
   -webkit-filter: grayscale(0%);
   filter: grayscale(0%);
 }
+
+.grid-item { width: 200px; }
+.grid-item--width2 { width: 400px; }

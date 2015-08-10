@@ -3,13 +3,26 @@
   <head>
     <meta charset="utf-8">
     <title>Flickr Gallery</title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
+    <script type="text/javascript">
+      //(function(){
+        var dataResponse = new Object;
+        function cb(data){
+          // use returned data
+          dataResponse.items = data;
+        }
+
+        var tags   = 'london';
+        var script = document.createElement('script');
+        script.src = 'http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=cb&tags='+tags;
+        document.head.appendChild(script);
+      //})();
+    </script>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,900' rel='stylesheet' type='text/css'>
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -21,9 +34,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
     <div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
-    </div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -32,6 +43,7 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src='scripts/lib/masonry.pkgd.min.js'></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <!-- endbuild -->
