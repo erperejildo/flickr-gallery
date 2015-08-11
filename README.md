@@ -5,6 +5,7 @@ version 0.11.1.
 
 ## Build & development
 
+Run `npm install & bower install` the first time.<br />
 Run `grunt` for building and `grunt serve` for preview.
 
 ## Testing
