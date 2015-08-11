@@ -39,8 +39,10 @@ angular.module('flickrGalleryApp')
 
 		// when images are loaded call Masonry (image reposition)
 		$scope.$on('onRepeatLast', function(scope, element, attrs) {
-	        var container = document.querySelector('#gallery');
-			var msnry = new Masonry( container, {});
+			$timeout(function() {
+		        var container = document.querySelector('#gallery');
+				var msnry = new Masonry( container, {});
+			}, 500);
 		});
 
 		$scope.favourite = new Object;
