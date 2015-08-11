@@ -14,12 +14,11 @@ angular
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
-            	if (scope.$last) setTimeout(function() {
+            	if (scope.$last) {
             		element.bind('load', function() {
 	                	scope.$emit('onRepeatLast', element, attrs);
 	                });
-	            }, 1);
-                
+	            }
             }
         };
     });
