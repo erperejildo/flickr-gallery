@@ -9,11 +9,17 @@
  * Main module of the application.
  */
 angular
-  .module('flickrGalleryApp', [])
-  .directive('onLastRepeat', function() {
-    return function(scope, element, attrs) {
-      if (scope.$last) setTimeout(function() {
-        scope.$emit('onRepeatLast', element, attrs);
-      }, 1);
-    };
-  })
+    .module('flickrGalleryApp', [])
+    .directive('imageonload', function() {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+            	if (scope.$last) setTimeout(function() {
+            		element.bind('load', function() {
+	                	scope.$emit('onRepeatLast', element, attrs);
+	                });
+	            }, 1);
+                
+            }
+        };
+    });

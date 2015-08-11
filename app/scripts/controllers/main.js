@@ -11,37 +11,36 @@ angular.module('flickrGalleryApp')
   .controller('MainCtrl', function ($scope, $http, $timeout) {
     	
   		// assign the response with images to scope
-		Object.observe(dataResponse, function (c) {
-			$scope.$apply(function () {
-				$scope.data = dataResponse.items;
-				// if we have favourites saved
-				if (localStorage.getItem('favouriteIMGs')) {
-					var favourites = JSON.parse(localStorage.getItem('favouriteIMGs'));
-					var b = 0;
-					for (var i = 0; i < favourites.length; i++) {
-						$scope.data.items.push(favourites[i]);
-						$scope.favourite[$scope.data.items.length - 1] = true;
-						// remove repeat images
-						/*var posRepeat = favourites[i].media.pos;
-						if ($scope.data.items[posRepeat].media.m === favourites[i].media.m) {
-							$scope.data.items.splice(i - b, 1);
-							b++;
+  		$timeout(function() {
+			Object.observe(dataResponse, function (c) {
+				console.log('observe');
+				$scope.$apply(function () {
+					$scope.data = dataResponse.items;
+					// if we have favourites saved
+					if (localStorage.getItem('favouriteIMGs')) {
+						var favourites = JSON.parse(localStorage.getItem('favouriteIMGs'));
+						var b = 0;
+						for (var i = 0; i < favourites.length; i++) {
+							$scope.data.items.push(favourites[i]);
+							$scope.favourite[$scope.data.items.length - 1] = true;
+							// remove repeat images
+							/*var posRepeat = favourites[i].media.pos;
+							if ($scope.data.items[posRepeat].media.m === favourites[i].media.m) {
+								$scope.data.items.splice(i - b, 1);
+								b++;
+							}
+							$scope.data.splice(b, 1);*/
 						}
-						$scope.data.splice(b, 1);*/
 					}
-				}
+				});
 			});
-		});
+		}, 50);
+
 
 		// when images are loaded call Masonry (image reposition)
 		$scope.$on('onRepeatLast', function(scope, element, attrs) {
-			$timeout(
-	            function() {
-	               	var container = document.querySelector('#gallery');
-					var msnry = new Masonry( container, {});
-	            },
-	            1500
-	        );
+	        var container = document.querySelector('#gallery');
+			var msnry = new Masonry( container, {});
 		});
 
 		$scope.favourite = new Object;

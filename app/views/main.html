@@ -4,9 +4,9 @@
 <img src="images/loading.gif" id="loading" ng-hide="data" />
 
 <div id="gallery" ng-show="data">
-  <div class="photo" ng-repeat="photo in data.items" on-last-repeat>
+  <div class="photo" ng-repeat="photo in data.items">
 
     <div class="heart" ng-class="{'visible':favourite[$index]}"></div>
-    <img class="image" id="photo{{$index}}" ng-src="{{photo.media.m}}" ng-click="addRmvFavourite($index)" ng-class="{'favourite':favourite[$index]}" />
+    <img class="image" id="photo{{$index}}" ng-src="{{photo.media.m}}" ng-click="addRmvFavourite($index)" ng-class="{'favourite':favourite[$index]}" imageonload />
   </div>
 </div>
