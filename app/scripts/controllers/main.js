@@ -26,11 +26,8 @@ angular.module('flickrGalleryApp')
 						// I tried to removed the repeat images with the position of the image, but changed
 						// the problem is if you active the first image again, when load page, you have 2 favourites
 						/*var posRepeat = favourites[i].media.pos;
-						console.log('$scope.data1: '+$scope.data.items[posRepeat].media.m);
-						console.log('favourites[i].media.m: '+favourites[i].media.m);
 						if ($scope.data.items[posRepeat].media.m === favourites[i].media.m) {
 							$scope.data.items.splice(i - b, 1);
-							console.log('$scope.data2: '+$scope.data.items[posRepeat - b].media.m);
 							b++;
 						}*/
 					}
