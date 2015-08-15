@@ -1,10 +1,8 @@
 <h1>My Flicker Gallery</h1>
 
-<img src="images/loading.gif" id="loading" ng-hide="data" />
-
-<div id="gallery" ng-show="data">
+<div id="gallery" elem-ready="placeIMGs()">
   <div class="photo" ng-repeat="photo in data.items">
     <div class="heart" ng-class="{'visible':favourite[$index]}"></div>
-    <img class="image" id="photo{{$index}}" ng-src="{{photo.media.m}}" ng-click="addRmvFavourite($index)" ng-class="{'favourite':favourite[$index]}" imageonload />
+    <img class="image" id="photo{{$index}}" ng-src="{{photo.media.m}}" ng-click="addRmvFavourite($index)" ng-class="{'favourite':favourite[$index]}" />
   </div>
 </div>

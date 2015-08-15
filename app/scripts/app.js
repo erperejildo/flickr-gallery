@@ -10,15 +10,17 @@
  */
 angular
     .module('flickrGalleryApp', [])
-    .directive('imageonload', function() {
+    // when images loaded
+    .directive('elemReady', function($parse) {
         return {
             restrict: 'A',
-            link: function(scope, element, attrs) {
-            	if (scope.$last) {
-            		element.bind('load', function() {
-	                	scope.$emit('onRepeatLast', element, attrs);
-	                });
-	            }
+            link: function($scope, elem, attrs) {
+                elem.ready(function() {
+                    $scope.$apply(function() {
+                        var func = $parse(attrs.elemReady);
+                        func($scope);
+                    })
+                })
             }
-        };
+        }
     });
