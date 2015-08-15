@@ -16,19 +16,19 @@ angular.module('flickrGalleryApp')
 			// if we have favourites saved
 			if (localStorage.getItem('favouriteIMGs')) {
 				var favourites = JSON.parse(localStorage.getItem('favouriteIMGs'));
-				//var b = 0;
+				var items = $scope.data.items.length;
 				for (var i = 0; i < favourites.length; i++) {
 					// active the images saved
 					$scope.data.items.push(favourites[i]);
-					$scope.favourite[$scope.data.items.length - 1] = true;
+					// if $scope.favourite is true we have this img as favourite saved
+					$scope.favourite[items - 1] = true;
 					// remove repeat images
-					// I tried to removed the repeat images with the position of the image, but changed
-					// the problem is if you active the first image again, when load page, you have 2 favourites
-					/*var posRepeat = favourites[i].media.pos;
-					if ($scope.data.items[posRepeat].media.m === favourites[i].media.m) {
-						$scope.data.items.splice(i - b, 1);
-						b++;
-					}*/
+					for (var d = 0; d < items; d ++) {
+						if ($scope.data.items[d].media.m === favourites[i].media.m) {
+							$scope.data.items.splice(d, 1);
+							items --;
+						}
+					}
 				}
 			}
   		};
