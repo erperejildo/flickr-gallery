@@ -14,5 +14,5 @@ Running `grunt test` will run the unit tests with karma.
 ## Technologies used
 
 AngularJS, JavaScript, HTML5, CSS3 (Sass), Yeoman, Grunt, Masonry<p>
-Demo: http://rodriguezdaniel.com/flickr-gallery/
+Demo: http://rodriguezdaniel.com/apps/flickr-gallery/
 
